@@ -1,6 +1,6 @@
 package deque;
 
-public class ArrayDeque<T> {
+public class ArrayDeque<T> implements Deque<T> {
     private T[] items;
     private int size;
     private int nextFirst;
@@ -13,6 +13,7 @@ public class ArrayDeque<T> {
         nextLast = 1;
     }
 
+    @Override
     public void addFirst(T item) {
         if (size == items.length) {
             resize(size * 2);
@@ -22,6 +23,7 @@ public class ArrayDeque<T> {
         nextFirst = moveForward(nextFirst);
     }
 
+    @Override
     public void addLast(T item) {
         if (size == items.length) {
             resize(size * 2);
@@ -31,6 +33,7 @@ public class ArrayDeque<T> {
         nextLast = moveBackward(nextLast);
     }
 
+    @Override
     public T removeFirst() {
         if (items[getFirstIndex()] == null) {
             return null;
@@ -45,6 +48,7 @@ public class ArrayDeque<T> {
         return out;
     }
 
+    @Override
     public T removeLast() {
         if (items[getLastIndex()] == null) {
             return null;
@@ -59,32 +63,34 @@ public class ArrayDeque<T> {
         return out;
     }
 
+    @Override
     public T get(int index) {
-        return items[index];
+        if (index >= size)
+            return null;
+        return items[(nextFirst + 1 + index) % items.length];
     }
 
-    public T getFirst() {
+    private T getFirst() {
         if (nextFirst + 1 == items.length) {
             return items[0];
         }
         return items[nextFirst + 1];
     }
 
-    public T getLast() {
+    private T getLast() {
         if (nextLast == 0) {
             return items[items.length - 1];
         }
         return items[nextLast - 1];
     }
 
+    @Override
     public int size() {
         return size;
     }
+    
 
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
+    @Override
     public void printDeque() {
         int first = getFirstIndex();
         for (int i = 0; i < size; i++) {

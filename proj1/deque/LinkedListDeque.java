@@ -2,7 +2,7 @@ package deque;
 
 import java.util.Iterator;
 
-public class LinkedListDeque<T> {
+public class LinkedListDeque<T> implements Deque<T> {
     private class IntNode {
         public T item;
         public IntNode next;
@@ -25,6 +25,7 @@ public class LinkedListDeque<T> {
 
     private int size;
 
+    @Override
     public void addFirst(T item) {
         sentinel.next = new IntNode(sentinel, item, sentinel.next);
         sentinel.next.next.prev = sentinel.next;
@@ -32,6 +33,7 @@ public class LinkedListDeque<T> {
         size += 1;
     }
 
+    @Override
     public void addLast(T item) {
         last.prev = new IntNode(last.prev, item, last);
         last.prev.prev.next = last.prev;
@@ -39,6 +41,7 @@ public class LinkedListDeque<T> {
         size += 1;
     }
 
+    @Override
     public T removeFirst() {
         if (sentinel.next.item == null) {
             return null;
@@ -50,6 +53,7 @@ public class LinkedListDeque<T> {
         return temp;
     }
 
+    @Override
     public T removeLast() {
         if (last.prev.item == null) {
             return null;
@@ -61,27 +65,24 @@ public class LinkedListDeque<T> {
         return temp;
     }
 
+    @Override
     public T get(int index) {
-        int count = 0;
-        IntNode temp = sentinel;
-        while (temp.next != null) {
-            if (count == index) {
-                return temp.item;
-            }
-            count++;
+        IntNode temp = sentinel.next;
+        if (index > size) {
+            return null;
+        }
+        for (int i = 0; i < index; i++) {
             temp = temp.next;
         }
-        return null;
+        return temp.item;
     }
 
+    @Override
     public int size() {
         return size;
     }
 
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
+    @Override
     public void printDeque() {
         for (int i = 0; i < size; i++) {
             System.out.print(get(i) + " ");
