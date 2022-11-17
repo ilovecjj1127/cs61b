@@ -124,7 +124,7 @@ public class ArrayDeque<T> implements Deque<T> {
     private class ArrayIterator implements Iterator<T> {
         private int wizPos;
 
-        public ArrayIterator() {
+        ArrayIterator() {
             wizPos = 0;
         }
 
@@ -148,11 +148,12 @@ public class ArrayDeque<T> implements Deque<T> {
             return false;
         }
         Iterator<T> iter = this.iterator();
-        Iterator<T> itero = ((Deque<?>) o).iterator();
+        int i = 0;
         while (iter.hasNext()) {
-            if (!iter.next().equals(itero.next())) {
+            if (!iter.next().equals(((Deque<?>) o).get(i))) {
                 return false;
             }
+            i += 1;
         }
 
         return true;
