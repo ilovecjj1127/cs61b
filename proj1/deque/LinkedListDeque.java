@@ -1,23 +1,18 @@
 package deque;
 
-import java.util.Iterator;
-
 public class LinkedListDeque<T> implements Deque<T> {
-    private class IntNode {
-        public T item;
-        public IntNode next;
-        public IntNode prev;
 
-        public IntNode(IntNode p, T i, IntNode n) {
+    private class IntNode {
+        private T item;
+        private IntNode next;
+        private IntNode prev;
+
+        IntNode(IntNode p, T i, IntNode n) {
             item = i;
             next = n;
             prev = p;
         }
 
-//        public IntNode(IntNode p, T i) {
-//            item = i;
-//            prev = p;
-//        }
     }
 
     private IntNode sentinel;
@@ -109,12 +104,41 @@ public class LinkedListDeque<T> implements Deque<T> {
         return getRecursiveHelper(n, head.next);
     }
 
-    public Iterator<T> iterator() {
+    private class LinkedListIterator implements Iterator<T> {
+        private int wizPos;
 
-        return null;
+        public LinkedListIterator() {
+            wizPos = 0;
+        }
+
+        public boolean hasNext() {
+            return wizPos < size;
+        }
+
+        public T next() {
+            T returnItem = get(wizPos);
+            wizPos += 1;
+            return returnItem;
+        }
     }
 
-//    public boolean equals(Object o) {
-//        return true;
-//    }
+
+    public Iterator<T> iterator() {
+        return new LinkedListIterator();
+    }
+
+    public boolean equals(Object o) {
+        if (!(o instanceof Deque) || size != ((Deque<?>) o).size()) {
+            return false;
+        }
+        Iterator<T> iter = this.iterator();
+        Iterator<T> itero = ((Deque<?>) o).iterator();
+        while (iter.hasNext()) {
+            if (!iter.next().equals(itero.next())) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

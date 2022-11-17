@@ -131,7 +131,8 @@ public class ArrayDequeTest {
                 int randVal = StdRandom.uniform(0, 100);
                 lld.addLast(randVal);
                 ad.addLast(randVal);
-            } else if (operationNumber == 1) {
+                assertTrue(lld.equals(ad));
+            } else if (operationNumber == 1 && !lld.isEmpty()) {
                 // removeFirst
                 assertEquals(lld.removeFirst(), ad.removeFirst());
             } else if (operationNumber == 2) {
@@ -142,6 +143,7 @@ public class ArrayDequeTest {
                 int randVal = StdRandom.uniform(0, 100);
                 lld.addFirst(randVal);
                 ad.addFirst(randVal);
+                assertTrue(ad.equals(lld));
             }
         }
 

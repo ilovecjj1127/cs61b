@@ -1,5 +1,6 @@
 package deque;
 
+
 public class ArrayDeque<T> implements Deque<T> {
     private T[] items;
     private int size;
@@ -65,30 +66,17 @@ public class ArrayDeque<T> implements Deque<T> {
 
     @Override
     public T get(int index) {
-        if (index >= size)
+        if (index >= size) {
             return null;
+        }
         return items[(nextFirst + 1 + index) % items.length];
-    }
-
-    private T getFirst() {
-        if (nextFirst + 1 == items.length) {
-            return items[0];
-        }
-        return items[nextFirst + 1];
-    }
-
-    private T getLast() {
-        if (nextLast == 0) {
-            return items[items.length - 1];
-        }
-        return items[nextLast - 1];
     }
 
     @Override
     public int size() {
         return size;
     }
-    
+
 
     @Override
     public void printDeque() {
@@ -133,6 +121,43 @@ public class ArrayDeque<T> implements Deque<T> {
 
     }
 
+    private class ArrayIterator implements Iterator<T> {
+        private int wizPos;
+
+        public ArrayIterator() {
+            wizPos = 0;
+        }
+
+        public boolean hasNext() {
+            return wizPos < size;
+        }
+
+        public T next() {
+            T returnItem = get(wizPos);
+            wizPos += 1;
+            return returnItem;
+        }
+    }
+
+    public Iterator<T> iterator() {
+        return new ArrayIterator();
+    }
+
+    public boolean equals(Object o) {
+        if (!(o instanceof Deque) || size != ((Deque<?>) o).size()) {
+            return false;
+        }
+        Iterator<T> iter = this.iterator();
+        Iterator<T> itero = ((Deque<?>) o).iterator();
+        while (iter.hasNext()) {
+            if (!iter.next().equals(itero.next())) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     private int getLastIndex() {
         if (nextLast == 0) {
             return items.length - 1;
@@ -163,6 +188,20 @@ public class ArrayDeque<T> implements Deque<T> {
             next += 1;
         }
         return next;
+    }
+
+    private T getFirst() {
+        if (nextFirst + 1 == items.length) {
+            return items[0];
+        }
+        return items[nextFirst + 1];
+    }
+
+    private T getLast() {
+        if (nextLast == 0) {
+            return items[items.length - 1];
+        }
+        return items[nextLast - 1];
     }
 
 }
