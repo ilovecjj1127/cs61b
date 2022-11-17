@@ -39,47 +39,6 @@ public class TestArrayDequeEC {
                     expected, actual);
         }
 
-        // removeFirst
-        List<Integer> actualList = new ArrayList<>();
-        List<Integer> expectedList = new ArrayList<>();
-        for (int i=0; i<10; i++) {
-            actualList.add(ads.removeFirst());
-            expectedList.add(sad.removeFirst());
-        }
-        for (int i=0; i<10; i++) {
-            int actual = ads.get(i);
-            int expected = sad.get(i);
-            assertEquals("Oh noooo!\nThis is bad in removeFirst():\n   Random number " + actual
-                            + " not equal to " + expected + "!",
-                    expected, actual);
-        }
-        for (int i=0; i<10; i++) {
-            int actual = actualList.get(i);
-            int expected = expectedList.get(i);
-            assertEquals("Oh noooo!\nThis is bad in removeFirst():\n   Random number " + actual
-                            + " not equal to " + expected + "!",
-                    expected, actual);
-        }
-
-
-        // removeLast
-        actualList.clear();
-        expectedList.clear();
-        for (int i=0; i<10; i++) {
-            actualList.add(ads.removeLast());
-            expectedList.add(sad.removeLast());
-        }
-        int actual = ads.size();
-        int expected = sad.size();
-        assertEquals("Oh noooo!\nThis is bad in removeLast():\n   actual size " + actual
-                        + " not equal to " + expected + "!",
-                expected, actual);
-        for (int i=0; i<10; i++) {
-            assertEquals("Oh noooo!\nThis is bad in removeLast():\n   Random number " + actualList.get(i)
-                            + " not equal to " +  expectedList.get(i) + "!",
-                    expectedList.get(i), actualList.get(i));
-        }
-
     }
 
 
