@@ -25,7 +25,7 @@ public class TestArrayDequeEC {
                 Integer student = stuad.removeFirst();
                 Integer solution = crtad.removeFirst();
                 assertEquals("Test failed!\n Correct removed first: " + solution + "\n You removed first: " + student,
-                        student, solution);
+                        solution, student);
             } else if (operationNumber == 2) {
                 // size
                 assertEquals("size failed", crtad.size(), stuad.size());
@@ -34,7 +34,7 @@ public class TestArrayDequeEC {
                 Integer student = stuad.removeLast();
                 Integer solution = crtad.removeLast();
                 assertEquals("Test failed!\n Correct removed last: " + solution + "\n You removed last: " + student,
-                        student, solution);
+                        solution, student);
             } else {
                 // addFirst
                 int randVal = StdRandom.uniform(0, 100);
